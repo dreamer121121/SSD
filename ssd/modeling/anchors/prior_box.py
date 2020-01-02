@@ -24,7 +24,7 @@ class PriorBox:
         """
         priors = []
         for k, f in enumerate(self.feature_maps):
-            scale = self.image_size / self.strides[k]
+            scale = self.image_size / self.strides[k] #计算特征图的大小。
             for i, j in product(range(f), repeat=2):
                 # unit center x,y
                 cx = (j + 0.5) / scale
