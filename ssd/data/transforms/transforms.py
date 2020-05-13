@@ -7,6 +7,11 @@ import cv2
 import numpy as np
 import types
 from numpy import random
+#
+# img = cv2.imread('./IMG.jpg',0)
+# while cv2.waitKey(0):2
+#     cv2.imshow("sss",img)
+# cv2.destroyAllWindows()
 
 
 def intersect(box_a, box_b):

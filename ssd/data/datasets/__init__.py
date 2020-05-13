@@ -14,7 +14,7 @@ def build_dataset(dataset_list, transform=None, target_transform=None, is_train=
     assert len(dataset_list) > 0
     datasets = []
     for dataset_name in dataset_list:
-        data = DatasetCatalog.get(dataset_name)
+        data = DatasetCatalog.get(dataset_name) #返回一个字典。
         args = data['args']
         factory = _DATASETS[data['factory']]
         args['transform'] = transform

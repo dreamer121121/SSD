@@ -63,6 +63,7 @@ def do_train(cfg, model,
     if args.use_tensorboard and save_to_disk:
         import tensorboardX
 
+        #可视化训练过程
         summary_writer = tensorboardX.SummaryWriter(log_dir=os.path.join(cfg.OUTPUT_DIR, 'tf_logs'))
     else:
         summary_writer = None
@@ -72,6 +73,8 @@ def do_train(cfg, model,
     start_training_time = time.time()
     end = time.time()
     for iteration, (images, targets, _) in enumerate(data_loader, start_iter):
+        #此处的target?是从原图上读出来的GT吗？
+        print("==========开始训练===========")
         iteration = iteration + 1
         arguments["iteration"] = iteration
         scheduler.step()

@@ -21,6 +21,7 @@ from ssd.utils.misc import str2bool
 def train(cfg, args):
     logger = logging.getLogger('SSD.trainer')
     model = build_detection_model(cfg)
+    # print("model：",model)
     device = torch.device(cfg.MODEL.DEVICE)
     model.to(device)
     if args.distributed:
