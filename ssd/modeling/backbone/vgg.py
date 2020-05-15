@@ -108,7 +108,8 @@ class VGG(nn.Module):
 
 @registry.BACKBONES.register('vgg')
 def vgg(cfg, pretrained=True):
+    import torch
     model = VGG(cfg)
     if pretrained:
-        model.init_from_pretrain(load_state_dict_from_url(model_urls['vgg']))
+        model.init_from_pretrain(torch.load('./pretrained/'))
     return model
