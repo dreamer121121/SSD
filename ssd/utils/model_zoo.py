@@ -63,5 +63,5 @@ def cache_url(url, model_dir=None, progress=True):
 
 
 def load_state_dict_from_url(url, map_location='cpu'):
-    cached_file = cache_url(url)
+    cached_file = cache_url(url,model_dir='../../pretrained')
     return torch.load(cached_file, map_location=map_location)
