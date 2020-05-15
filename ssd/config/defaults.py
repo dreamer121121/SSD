@@ -29,7 +29,7 @@ _C.MODEL.PRIORS.FEATURE_MAPS = [38, 19, 10, 5, 3, 1] #特征图大小
 _C.MODEL.PRIORS.STRIDES = [8, 16, 32, 64, 100, 300]
 _C.MODEL.PRIORS.MIN_SIZES = [30, 60, 111, 162, 213, 264]  #此两组数据根据原文中公式(4)得来。
 _C.MODEL.PRIORS.MAX_SIZES = [60, 111, 162, 213, 264, 315]
-_C.MODEL.PRIORS.ASPECT_RATIOS = [[2], [2, 3], [2, 3], [2, 3], [2], [2]]
+_C.MODEL.PRIORS.ASPECT_RATIOS = [[2], [2, 3], [2, 3], [2, 3], [2], [2]] #六个特征图上的anchor的长宽比是不同的，且六个特征图上的每个位置的anchor的数量也是不同的。
 # When has 1 aspect ratio, every location has 4 boxes, 2 ratio 6 boxes.
 # #boxes = 2 + #ratio * 2
 _C.MODEL.PRIORS.BOXES_PER_LOCATION = [4, 6, 6, 6, 4, 4]  # number of boxes per feature map location 每个featuremap每个像素点位置产生anchor的数量。

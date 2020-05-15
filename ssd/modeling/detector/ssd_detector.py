@@ -8,8 +8,8 @@ class SSDDetector(nn.Module):
     def __init__(self, cfg):
         super().__init__()
         self.cfg = cfg
-        self.backbone = build_backbone(cfg)
-        self.box_head = build_box_head(cfg)
+        self.backbone = build_backbone(cfg)#backbone提取特征
+        self.box_head = build_box_head(cfg)#head
 
     def forward(self, images, targets=None):
         features = self.backbone(images)

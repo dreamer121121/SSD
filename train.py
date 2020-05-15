@@ -22,16 +22,16 @@ def train(cfg, args):
     logger = logging.getLogger('SSD.trainer')
     model = build_detection_model(cfg)
     # print("model：",model)
-    device = torch.device(cfg.MODEL.DEVICE)
+    device = torch.device(cfg.MODEL.DEVICE) #设置使用的设备
     model.to(device)
-    if args.distributed:
+    if args.distributed: #单机多卡或者多机多卡，必须在GPU数量大于1的情况下使用
         model = torch.nn.parallel.DistributedDataParallel(model, device_ids=[args.local_rank], output_device=args.local_rank)
 
     lr = cfg.SOLVER.LR * args.num_gpus  # scale by num gpus
     optimizer = make_optimizer(cfg, model, lr)
 
     milestones = [step // args.num_gpus for step in cfg.SOLVER.LR_STEPS]
-    scheduler = make_lr_scheduler(cfg, optimizer, milestones)
+    scheduler = make_lr_scheduler(cfg, optimizer, milestones) #调整学习率
 
     arguments = {"iteration": 0}
     save_to_disk = dist_util.get_rank() == 0
