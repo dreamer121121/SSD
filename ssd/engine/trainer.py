@@ -81,8 +81,8 @@ def do_train(cfg, model,
 
         images = images.to(device)
         targets = targets.to(device)
-        print("images.size():",images.size())
-        print("target.size():",targets.size())
+        print("images.size():",images.size()) #[N,3,300,300]
+        print("type(target):",type(targets))
         loss_dict = model(images, targets=targets)
         loss = sum(loss for loss in loss_dict.values())
 

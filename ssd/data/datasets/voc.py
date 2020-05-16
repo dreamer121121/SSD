@@ -27,6 +27,7 @@ class VOCDataset(torch.utils.data.Dataset):
         self.target_transform = target_transform
         image_sets_file = os.path.join(self.data_dir, "ImageSets", "Main", "%s.txt" % self.split)
         self.ids = VOCDataset._read_image_ids(image_sets_file)
+        print("ids:",self.ids)
         self.keep_difficult = keep_difficult
 
         self.class_dict = {class_name: i for i, class_name in enumerate(self.class_names)}
