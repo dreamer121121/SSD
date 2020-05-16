@@ -34,15 +34,20 @@ class VOCDataset(torch.utils.data.Dataset):
 
     def __getitem__(self, index):
         image_id = self.ids[index]
-        boxes, labels, is_difficult = self._get_annotation(image_id)
+        boxes, labels, is_difficult = self._get_annotation(image_id) #读取一张图片以及其对应的注释文件
         if not self.keep_difficult:
             boxes = boxes[is_difficult == 0]
             labels = labels[is_difficult == 0]
         image = self._read_image(image_id)
+        print("**********读取一张训练图片及其注释(GTboxes,class)************")
+        print("init_image.size()",image.size())
+        print("boxes.size()",boxes.size())
+        print("labels.size()",labels.size())
+        print("boxes:",boxes)
         if self.transform:
             image, boxes, labels = self.transform(image, boxes, labels)
         if self.target_transform:
-            boxes, labels = self.target_transform(boxes, labels)
+            boxes, labels = self.target_transform(boxes, labels) #target_transform指处理GTbox
         targets = Container(
             boxes=boxes,
             labels=labels,
@@ -65,7 +70,7 @@ class VOCDataset(torch.utils.data.Dataset):
         return ids
 
     def _get_annotation(self, image_id):
-        annotation_file = os.path.join(self.data_dir, "Annotations", "%s.xml" % image_id)
+        annotation_file = os.path.join(self.data_dir, "Annotations", "%s.xml" % image_id) #读取一条注释文件
         objects = ET.parse(annotation_file).findall("object")
         boxes = []
         labels = []
