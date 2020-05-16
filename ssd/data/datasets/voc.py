@@ -27,19 +27,19 @@ class VOCDataset(torch.utils.data.Dataset):
         self.target_transform = target_transform
         image_sets_file = os.path.join(self.data_dir, "ImageSets", "Main", "%s.txt" % self.split)
         self.ids = VOCDataset._read_image_ids(image_sets_file)
-        print("ids:",self.ids)
         self.keep_difficult = keep_difficult
 
         self.class_dict = {class_name: i for i, class_name in enumerate(self.class_names)}
 
     def __getitem__(self, index):
+        print("**********读取一张训练图片及其注释(GTboxes,class)************")
         image_id = self.ids[index]
+        print("image_id",image_id)
         boxes, labels, is_difficult = self._get_annotation(image_id) #读取一张图片以及其对应的注释文件
         if not self.keep_difficult:
             boxes = boxes[is_difficult == 0]
             labels = labels[is_difficult == 0]
         image = self._read_image(image_id)
-        print("**********读取一张训练图片及其注释(GTboxes,class)************")
         print("init_image.size()",image.shape)
         print("boxes.size()",boxes.shape)
         print("labels.size()",labels.shape)
