@@ -18,7 +18,7 @@ def build_transforms(cfg, is_train=True):
         ]
     else:
         transform = [
-            Resize(cfg.INPUT.IMAGE_SIZE), #转换为模型的输入尺寸300X300
+            Resize(cfg.INPUT.IMAGE_SIZE), #转换为图像的尺寸为300X300
             SubtractMeans(cfg.INPUT.PIXEL_MEAN),
             ToTensor()
         ]

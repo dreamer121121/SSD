@@ -5,7 +5,7 @@ from .voc import VOCDataset
 from .coco import COCODataset
 
 _DATASETS = {
-    'VOCDataset': VOCDataset,
+    'VOCDataset': VOCDataset, #torch.utils.data.Dataset 类型
     'COCODataset': COCODataset,
 }
 
@@ -23,7 +23,7 @@ def build_dataset(dataset_list, transform=None, target_transform=None, is_train=
             args['keep_difficult'] = not is_train
         elif factory == COCODataset:
             args['remove_empty'] = is_train
-        dataset = factory(**args)
+        dataset = factory(**args) #实例化dataset
         datasets.append(dataset)
     # for testing, return a list of datasets
     if not is_train:
