@@ -40,10 +40,11 @@ class VOCDataset(torch.utils.data.Dataset):
             labels = labels[is_difficult == 0]
         image = self._read_image(image_id)
         print("**********读取一张训练图片及其注释(GTboxes,class)************")
-        print("init_image.size()",image.size())
-        print("boxes.size()",boxes.size())
-        print("labels.size()",labels.size())
+        print("init_image.size()",image.shape)
+        print("boxes.size()",boxes.shape)
+        print("labels.size()",labels.shape)
         print("boxes:",boxes)
+        print("class:",labels)
         if self.transform:
             image, boxes, labels = self.transform(image, boxes, labels)
         if self.target_transform:
