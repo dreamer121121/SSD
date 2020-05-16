@@ -81,6 +81,8 @@ def do_train(cfg, model,
 
         images = images.to(device)
         targets = targets.to(device)
+        print("images.size():",images.size())
+        print("target.size():",targets.size())
         loss_dict = model(images, targets=targets)
         loss = sum(loss for loss in loss_dict.values())
 
@@ -89,9 +91,9 @@ def do_train(cfg, model,
         losses_reduced = sum(loss for loss in loss_dict_reduced.values())
         meters.update(total_loss=losses_reduced, **loss_dict_reduced)
 
-        optimizer.zero_grad()
-        loss.backward()
-        optimizer.step()
+        optimizer.zero_grad() #梯度清零
+        loss.backward() #误差反向传播
+        optimizer.step() #优化器更新，即更新参数
 
         batch_time = time.time() - end
         end = time.time()
