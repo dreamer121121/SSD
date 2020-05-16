@@ -46,9 +46,14 @@ class VOCDataset(torch.utils.data.Dataset):
         print("boxes:",boxes)
         print("class:",labels)
         if self.transform:
-            image, boxes, labels = self.transform(image, boxes, labels)
+            image, boxes, labels = self.transform(image, boxes, labels) #对原始图片进行转换
         if self.target_transform:
             boxes, labels = self.target_transform(boxes, labels) #target_transform指处理GTbox
+        print("image.shape after transform:",image.shape)
+        print("boxes.shape,class.shape,after transform",boxes.shape,labels.shape)
+        print("boxes after transform:",boxes)
+        print("class after transform:",labels)
+        
         targets = Container(
             boxes=boxes,
             labels=labels,

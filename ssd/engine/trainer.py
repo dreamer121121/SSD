@@ -73,7 +73,7 @@ def do_train(cfg, model,
     start_training_time = time.time()
     end = time.time()
     for iteration, (images, targets, _) in enumerate(data_loader, start_iter):
-        #此处的target?是从原图上读出来的GT吗？
+        #此处的target?,是从原图上读出来的GT吗？
         print("==========开始训练===========")
         iteration = iteration + 1
         arguments["iteration"] = iteration
@@ -81,8 +81,7 @@ def do_train(cfg, model,
 
         images = images.to(device)
         targets = targets.to(device)
-        print("images.size():",images.size()) #[N,3,300,300]
-        print("type(target):",type(targets))
+
         loss_dict = model(images, targets=targets)
         loss = sum(loss for loss in loss_dict.values())
 
