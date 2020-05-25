@@ -375,6 +375,7 @@ class Expand(object):
         boxes[:, :2] += (int(left), int(top))
         boxes[:, 2:] += (int(left), int(top))
         print("Expand:",boxes)
+        print("After Expand img size：",image.shape)
 
         return image, boxes, labels
 
@@ -438,4 +439,5 @@ class PhotometricDistort(object):
             distort = Compose(self.pd[1:])
         im, boxes, labels = distort(im, boxes, labels)
         print("PhotometricDistort:",boxes)
+        print("After PhotometricDistort img size:",image.shape)
         return self.rand_light_noise(im, boxes, labels)
