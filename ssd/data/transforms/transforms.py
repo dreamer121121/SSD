@@ -123,6 +123,7 @@ class ToAbsoluteCoords(object):
 class ToPercentCoords(object):
     def __call__(self, image, boxes=None, labels=None):
         height, width, channels = image.shape #image是PIL对象
+        print("Before ToPercentCoords image.size",height,width,channels)
         boxes[:, 0] /= width
         boxes[:, 2] /= width
         boxes[:, 1] /= height
