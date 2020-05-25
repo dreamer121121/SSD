@@ -27,6 +27,7 @@ def build_transforms(cfg, is_train=True):
 
 
 def build_target_transform(cfg):
+    #给anchor 打标签，利用anchor和GT
     transform = SSDTargetTransform(PriorBox(cfg)(),
                                    cfg.MODEL.CENTER_VARIANCE,
                                    cfg.MODEL.SIZE_VARIANCE,

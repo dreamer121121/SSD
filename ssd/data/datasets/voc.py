@@ -52,10 +52,11 @@ class VOCDataset(torch.utils.data.Dataset):
         print("boxes after transform:",boxes)
         print("class after transform:",labels)
         if self.target_transform:
-            boxes, labels = self.target_transform(boxes, labels) #target_transform指处理GTbox
-        print("boxes.shape,class.shape,after target_transform",boxes.shape,labels.shape)
-        print("boxes after target_transform:",boxes)
-        print("class after target_transform:",labels)
+            # target_transform指处理GTbox,详情应查看transform/__init__.py
+            boxes, labels = self.target_transform(boxes, labels)
+        # print("boxes.shape,class.shape,after target_transform",boxes.shape,labels.shape)
+        # print("boxes after target_transform:",boxes)
+        # print("class after target_transform:",labels)
 
         targets = Container(
             boxes=boxes,

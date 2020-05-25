@@ -122,12 +122,12 @@ class ToAbsoluteCoords(object):
 
 class ToPercentCoords(object):
     def __call__(self, image, boxes=None, labels=None):
-        height, width, channels = image.shape
+        height, width, channels = image.shape #image是PIL对象
         boxes[:, 0] /= width
         boxes[:, 2] /= width
         boxes[:, 1] /= height
         boxes[:, 3] /= height
-
+        print("ToPercentCoords:",boxes)
         return image, boxes, labels
 
 
@@ -345,7 +345,7 @@ class RandomSampleCrop(object):
                                                   rect[2:])
                 # adjust to crop (by substracting crop's left,top)
                 current_boxes[:, 2:] -= rect[:2]
-
+                print("RandomSampleCrop:",current_boxes)
                 return current_image, current_boxes, current_labels
 
 
@@ -373,6 +373,7 @@ class Expand(object):
         boxes = boxes.copy()
         boxes[:, :2] += (int(left), int(top))
         boxes[:, 2:] += (int(left), int(top))
+        print("Expand:",boxes)
 
         return image, boxes, labels
 
@@ -384,6 +385,7 @@ class RandomMirror(object):
             image = image[:, ::-1]
             boxes = boxes.copy()
             boxes[:, 0::2] = width - boxes[:, 2::-2]
+        print("RandomMirror:",boxes)
         return image, boxes, classes
 
 
@@ -434,4 +436,5 @@ class PhotometricDistort(object):
         else:
             distort = Compose(self.pd[1:])
         im, boxes, labels = distort(im, boxes, labels)
+        print("PhotometricDistort:",boxes)
         return self.rand_light_noise(im, boxes, labels)
