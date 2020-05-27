@@ -305,8 +305,8 @@ class RandomSampleCrop(object):
 
                 # calculate IoU (jaccard overlap) b/t the cropped and gt boxes
                 print("rect:",rect)
-                print("overlap After calcuate IOU between rect and boxes",)
                 overlap = jaccard_numpy(boxes, rect)
+                print("overlap After calcuate IOU between rect and boxes",overlap)
 
                 # is min and max overlap constraint satisfied? if not try again
                 if overlap.max() < min_iou or overlap.min() > max_iou:
