@@ -304,6 +304,8 @@ class RandomSampleCrop(object):
                 rect = np.array([int(left), int(top), int(left + w), int(top + h)])
 
                 # calculate IoU (jaccard overlap) b/t the cropped and gt boxes
+                print("rect:",rect)
+                print("overlap After calcuate IOU between rect and boxes",)
                 overlap = jaccard_numpy(boxes, rect)
 
                 # is min and max overlap constraint satisfied? if not try again
@@ -347,6 +349,7 @@ class RandomSampleCrop(object):
                 # adjust to crop (by substracting crop's left,top)
                 current_boxes[:, 2:] -= rect[:2]
                 print("RandomSampleCrop:",current_boxes)
+                print("Image size After RandomSampleCrop",current_image.shape)
                 return current_image, current_boxes, current_labels
 
 
@@ -381,12 +384,13 @@ class Expand(object):
 
 
 class RandomMirror(object):
+    """对图像进行随机镜像，GT_box也会随着图像进行随机镜像"""
     def __call__(self, image, boxes, classes):
         _, width, _ = image.shape
         if random.randint(2):
-            image = image[:, ::-1]
+            image = image[:, ::-1] #image进行镜像
             boxes = boxes.copy()
-            boxes[:, 0::2] = width - boxes[:, 2::-2]
+            boxes[:, 0::2] = width - boxes[:, 2::-2] #boxes也进行镜像
         print("RandomMirror:",boxes)
         return image, boxes, classes
 

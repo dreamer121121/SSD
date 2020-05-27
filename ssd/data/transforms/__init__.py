@@ -6,9 +6,11 @@ from .transforms import *
 def build_transforms(cfg, is_train=True):
     if is_train:
         transform = [
-            ConvertFromInts(),
-            PhotometricDistort(),
+            ConvertFromInts(), #将image的数据数据类型转换为np.float32
+            PhotometricDistort(),#准换颜色模型，RGB，HSV等
+            # 将image进行扩展（补0），image.size相对于原始的图片变大了，同时GT_box的坐标也随之改变
             Expand(cfg.INPUT.PIXEL_MEAN),
+            #对扩展后的图片进行随机剪裁，image.size会被改变
             RandomSampleCrop(),
             RandomMirror(),
             ToPercentCoords(),
