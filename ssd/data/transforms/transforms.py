@@ -312,12 +312,12 @@ class RandomSampleCrop(object):
                 if overlap.max() < min_iou or overlap.min() > max_iou:
                     continue
 
-                # cut the crop from the image
+                # cut the crop from the image，从图片中采样一个crop，位置为rect。
                 current_image = current_image[rect[1]:rect[3], rect[0]:rect[2],
                                 :]
 
                 # keep overlap with gt box IF center in sampled patch
-                centers = (boxes[:, :2] + boxes[:, 2:]) / 2.0
+                centers = (boxes[:, :2] + boxes[:, 2:]) / 2.0 #boxes的中心坐标
 
                 # mask in all gt boxes that above and to the left of centers
                 m1 = (rect[0] < centers[:, 0]) * (rect[1] < centers[:, 1])
@@ -328,6 +328,7 @@ class RandomSampleCrop(object):
                 # mask in that both m1 and m2 are true
                 mask = m1 * m2
 
+                print("mask:",mask)
                 # have any valid boxes? try again if not
                 if not mask.any():
                     continue
